@@ -1,0 +1,12 @@
+# conf file must be in same directory as script
+
+[json]
+app_name = CB Data Forwarder
+version = 1.0
+
+[cb]
+pid_file = ./cbdataforwarderEventLogs.pid
+s3_key =
+s3_secret =
+s3_bucket =
+org =
