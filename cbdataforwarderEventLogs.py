@@ -29,7 +29,16 @@ class integration(object):
 
     JSON_field_mappings = {
         'type' : 'category',
-        'device_name' : 'client_hostname',
+        'device_external_ip' : 'external_ip',
+        'device_os' : 'os_type',
+        'process_reputation' : 'reputation',
+        'process_username' : 'reputation',
+        'sensor_action' : 'action',
+        'process_cmdline' : 'command_line',
+        'process_hash' : 'hash',
+        'parent_cmdline' : 'parent_command_line',
+        'parent_pid' : 'parent_process_id',
+        'device_name' : 'hostname',
         'local_ip' : 'sensor_ip',
         'event_description' : 'message',
         'device_timestamp' : 'timestamp'
@@ -58,7 +67,8 @@ class integration(object):
                 for line in f:
                     event = json.loads(str(line, 'utf-8'))
                     event['device_timestamp'] = event['device_timestamp'].split('+')[0][:-1].replace(' ', 'T')
-                    #event['category'] = category
+                    if 'process_hash' in event.keys() and len(event['process_hash']) == 1:
+                        event['process_hash'] = event['process_hash'][0]
                     self.ds.writeJSONEvent(event, JSON_field_mappings = self.JSON_field_mappings)
             self.ds.log('INFO', "Deleting s3 object %s" %(s3_file))
             #self.s3_bucket.delete_object(s3_file)
