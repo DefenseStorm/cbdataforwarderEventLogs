@@ -30,13 +30,16 @@ class integration(object):
     JSON_field_mappings = {
         'type' : 'category',
         'device_external_ip' : 'external_ip',
+        'netconn_procotol' : 'protocol',
+        'remote_ip' : 'dest_ip',
         'parent_guid' : 'parent_process_guid',
         'device_os' : 'os_type',
         'process_reputation' : 'reputation',
         'process_username' : 'reputation',
         'sensor_action' : 'action',
         'process_cmdline' : 'command_line',
-        'process_hash' : 'hash',
+        'process_md5' : 'process_md5',
+        'parent_process_md5' : 'parent_md5',
         'parent_cmdline' : 'parent_command_line',
         'parent_pid' : 'parent_process_id',
         'device_name' : 'hostname',
@@ -68,12 +71,18 @@ class integration(object):
                 for line in f:
                     event = json.loads(str(line, 'utf-8'))
                     event['device_timestamp'] = event['device_timestamp'].split('+')[0][:-1].replace(' ', 'T')
-                    if 'process_hash' in event.keys() and len(event['process_hash']) == 1:
-                        event['process_hash'] = event['process_hash'][0]
+                    if 'process_hash' in event.keys():
+                        event['process_md5'] = event['process_hash'][0]
+                        event['process_sha256'] = event['process_hash'][1]
+                        del event['process_hash']
+                    if 'parent_hash' in event.keys():
+                        event['parent_process_md5'] = event['parent_hash'][0]
+                        event['parent_process_sha256'] = event['parent_hash'][1]
+                        del event['parent_process_hash']
                     self.ds.writeJSONEvent(event, JSON_field_mappings = self.JSON_field_mappings)
             self.ds.log('INFO', "Deleting s3 object %s" %(s3_file))
             #self.s3_bucket.delete_object(s3_file)
-            self.s3.Object(self.s3_bucket_name, s3_file).delete()
+            #self.s3.Object(self.s3_bucket_name, s3_file).delete()
         except Exception as e:
             self.ds.log('ERROR', "Error handling file %s: %s" %(s3_file, e))
             return False
