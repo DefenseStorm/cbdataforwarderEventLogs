@@ -84,7 +84,6 @@ class integration(object):
         self.s3_secret = self.ds.config_get('cb', 's3_secret')
         self.s3_bucket_name = self.ds.config_get('cb', 's3_bucket')
         self.cb_org = self.ds.config_get('cb', 'org')
-        self.history = self.ds.config_get('cb', 'history')
 
         try:
             self.s3 = boto3.resource('s3', aws_access_key_id=self.s3_key, aws_secret_access_key=self.s3_secret)
