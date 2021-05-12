@@ -30,6 +30,7 @@ class integration(object):
     JSON_field_mappings = {
         'type' : 'category',
         'device_external_ip' : 'external_ip',
+        'parent_guid' : 'parent_process_guid',
         'device_os' : 'os_type',
         'process_reputation' : 'reputation',
         'process_username' : 'reputation',
