@@ -88,15 +88,6 @@ class integration(object):
         os.remove(local_file)
         return True
 
-    def delete_SQS_message(self, sqs_rh):
-        self.ds.log('INFO', "Deleting SQS Notification: %s" %(sqs_rh))
-        try:
-            self.sqs.delete_message(QueueUrl = self.sqs_url, ReceiptHandle = sqs_rh)
-        except Exception as e:
-            self.ds.log('ERROR', "Failed to delete SQS Notification: %s - %s" %(sqs_rh, e))
-            return False
-        return True
-
     def cs_main(self): 
 
         self.s3_key = self.ds.config_get('cb', 's3_key')
@@ -114,7 +105,7 @@ class integration(object):
 
         s3_files = self.get_S3_file_list()
         for s3_file in s3_files:
-            self.ds.log('INFO', "Downloading file: %s" %(s3_file))
+            self.ds.log('INFO', "Processing file: %s" %(s3_file))
             if not self.process_file(s3_file):
                 self.ds.log('ERROR', "Failed to process file: %s" %(s3_file))
                 break
