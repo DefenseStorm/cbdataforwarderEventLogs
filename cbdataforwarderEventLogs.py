@@ -81,8 +81,7 @@ class integration(object):
                         del event['parent_process_hash']
                     self.ds.writeJSONEvent(event, JSON_field_mappings = self.JSON_field_mappings)
             self.ds.log('INFO', "Deleting s3 object %s" %(s3_file))
-            #self.s3_bucket.delete_object(s3_file)
-            #self.s3.Object(self.s3_bucket_name, s3_file).delete()
+            self.s3.Object(self.s3_bucket_name, s3_file).delete()
         except Exception as e:
             self.ds.log('ERROR', "Error handling file %s: %s" %(s3_file, e))
             return False
