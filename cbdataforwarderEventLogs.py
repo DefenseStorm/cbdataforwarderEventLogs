@@ -78,7 +78,7 @@ class integration(object):
                     if 'parent_hash' in event.keys():
                         event['parent_process_md5'] = event['parent_hash'][0]
                         event['parent_process_sha256'] = event['parent_hash'][1]
-                        del event['parent_process_hash']
+                        del event['parent_hash']
                     self.ds.writeJSONEvent(event, JSON_field_mappings = self.JSON_field_mappings)
             self.ds.log('INFO', "Deleting s3 object %s" %(s3_file))
             self.s3.Object(self.s3_bucket_name, s3_file).delete()
