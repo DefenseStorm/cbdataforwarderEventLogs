@@ -37,7 +37,7 @@ class integration(object):
         'process_reputation' : 'reputation',
         'process_username' : 'username',
         'sensor_action' : 'action',
-        'process_cmdline' : 'command_line',
+        'target_cmdline' : 'command_line',
         'process_md5' : 'process_md5',
         'parent_process_md5' : 'parent_md5',
         'parent_cmdline' : 'parent_command_line',
