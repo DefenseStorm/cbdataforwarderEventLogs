@@ -44,7 +44,6 @@ class integration(object):
         'parent_pid' : 'parent_process_id',
         'parent_path' : 'parent_image',
         'childproc_name' : 'image',
-        'command_line' : 'image',
         'device_name' : 'hostname',
         'local_ip' : 'sensor_ip',
         'event_description' : 'message',
