@@ -1,3 +1,6 @@
+NOTE:  DefenseStorm is now internally maintaining an AWS Lambda based integration for this deployment.  Customers and public are free to continue to use this integration, but DefenseStorm will no longer be providing updates/development on the integration housed here.  Pleas contact DefenseStorm Support if you have any questions.
+
+
 CarbonBlack Data Forwarder Integration for DefenseStorm
 
 to pull this repository and submodules:
